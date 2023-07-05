@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Ó céus, que série assistir?</h1>
+
+    <form class="row justify-content-center g-3">
+        <div class="col-md-4">
+            <label for="nome-serie" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome-serie" name="nome-serie">
+        </div>
+        
+        <div class="col-md-2">
+            <label for="interesse" class="form-label">Interesse</label>
+            <input type="range" class="form-control" id="interesse" min=-1 max=1>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" disabled class="btn btn-secondary col-2">Adicionar</button>
+            <button type="submit" class="btn btn-success col-2">Escolher</button>
+        </div>
+
+    </form>
+</div>
