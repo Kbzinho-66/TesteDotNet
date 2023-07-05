@@ -24,8 +24,8 @@ public class EscolhaController : Controller
     // GET: /Escolha/Mostra/
     public IActionResult Mostra(string nome)
     {
-        ViewData["NomeSerie"] = nome;
-        return View();
+        var serie = new Serie(nome, 0);
+        return View(serie);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
