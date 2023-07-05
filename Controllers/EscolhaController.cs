@@ -1,30 +1,33 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Hello.Models;
+using System.Text.Encodings.Web;
 
 namespace Hello.Controllers;
 
-public class HomeController : Controller
+public class EscolhaController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<EscolhaController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public EscolhaController(ILogger<EscolhaController> logger)
     {
         _logger = logger;
     }
 
-    public IActionResult Index()
+    //
+    // GET: /Escolha/
+    public string Index()
     {
+        return "Padrão...";
+    }
+
+    // GET: /Escolha/Mostra/
+    public IActionResult Mostra(string nome)
+    {
+        ViewData["NomeSerie"] = nome;
         return View();
     }
 
-    // GET: /Add/
-    public string Add(string nome, int interesse)
-    {
-        _logger.LogInformation($"Nome = {nome} e Interesse = {interesse}");
-        return "OK.";
-    }
-    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
