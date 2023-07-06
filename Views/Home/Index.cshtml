@@ -7,18 +7,30 @@
 <div class="text-center">
     <h1 class="display-4">Ó céus, que série assistir?</h1>
 
-    @foreach (var serie in Model)
-    {
-        // TODO Melhorar isso
-        <ul>
-            <li>@Html.DisplayFor(item => serie.nome)</li>
-        </ul>
-    }
+    <div class="container">
+        @foreach (var serie in Model)
+        {
+            <div class="row justify-content-center py-2">
+                <div class="col-md-4 py-1 bg-light rounded-start border border-2">@serie.Nome</div>
+                <div class="col-md-2 py-1 bg-light rounded-end border border-2">
+                    @switch (serie.Interesse)
+                        {
+                            case -1: <span>🙁</span>
+                            break;
+                            case 0: <span>🙂</span>
+                            break;
+                            case 1: <span>😃</span>
+                            break;
+                        }
+                </div>
+            </div>
+        }
+    </div>
 
-    <form class="row justify-content-center g-3">
+    <form asp-action="Add" class="row justify-content-center g-3">
         <div class="col-md-4">
             <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome">
+            <input data-val="true" type="text" class="form-control" id="nome" name="nome">
         </div>
         
         <div class="col-md-2">
@@ -26,10 +38,9 @@
             <input type="range" class="form-control" id="interesse" name="interesse" min=-1 max=1>
         </div>
 
-        @* TODO Desativar o botão se o nome tiver vazio *@
         <div class="col-12">
             <button type="submit" id="btn-add" class="btn btn-secondary col-1">Adicionar</button>
-            <button type="button" class="btn btn-success col-1">Escolher</button>
+            <button asp-controller="Escolha" asp-action="Mostra" class="btn btn-success col-1">Escolher</button>
         </div>
     </form>
 </div>

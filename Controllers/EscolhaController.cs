@@ -9,6 +9,27 @@ public class EscolhaController : Controller
 {
     private readonly ILogger<EscolhaController> _logger;
 
+    private static Serie PegaAleatoria(Serie[] series) {
+        const int pesoBase = 2;
+        var indices = new List<int>();
+
+        int i = 0;
+        foreach (var serie in series)
+        {
+            for (int j = 0; j < pesoBase + serie.Interesse; j++)
+            {
+                indices.Add(i);
+            }
+            i++;
+        }
+
+        var rand = new Random();
+        var escolha = rand.Next(0, indices.Count);
+        var indice = indices[escolha];
+        return series[indice];
+        
+    }
+
     public EscolhaController(ILogger<EscolhaController> logger)
     {
         _logger = logger;
@@ -22,10 +43,19 @@ public class EscolhaController : Controller
     }
 
     // GET: /Escolha/Mostra/
-    public IActionResult Mostra(string nome)
+    public IActionResult Mostra()
     {
-        var serie = new Serie(nome, 0);
-        return View(serie);
+        // Buscaria isso do DB
+        var series = new Serie[]
+        {
+            new Serie("Wakfu", 0),
+            new Serie("The Wire", 1),
+            new Serie("Seinfeld", -1),
+            new Serie("Barry", 1),
+            new Serie("The Expanse", 1),
+        };
+
+        return View(PegaAleatoria(series));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
