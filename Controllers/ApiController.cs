@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Globalization;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +25,14 @@ public class ApiController : Controller
 
     public async Task<ActionResult> Procura(double dificuldade, int tipo, int participantes)
     {
+        if (dificuldade != 1)
+        {
+            // Vem errado quando é decimal
+            dificuldade /= 100.0;
+        }
+        var dificuldadeCerta = dificuldade.ToString("n2", CultureInfo.InvariantCulture);
+        Console.WriteLine(dificuldadeCerta);
+
         var tiposEn = new string[] {
             "education", "recreational", "social",
             "diy", "charity", "cooking", 
@@ -39,9 +49,9 @@ public class ApiController : Controller
 
         var options = new RestClientOptions("https://www.boredapi.com/api/");
         var client = new RestClient(options);
-        _logger.LogInformation($"activity?type={tipoEn}&accessibility={dificuldade/100.0}&participants={participantes}");
+
         Resposta resposta = await client.GetJsonAsync<Resposta>(
-            $"activity?type={tipoEn}&participants={participantes}"
+            $"activity?type={tipoEn}&participants={participantes}&maxaccessibility={dificuldadeCerta}"
         );
 
         return View(new Atividade(resposta, tipoPt));

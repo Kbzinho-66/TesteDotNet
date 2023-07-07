@@ -5,12 +5,17 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4 mb-3 py-3 d-block bg-warning fw-bold">@Model.Descricao</h1>
+    <div class="d-flex flex-column bg-warning">
+        <h1 class="display-4 mb-3 pt-3 d-block fw-bold">
+            @Model.Descricao
+        </h1>
+        <span class="align-self-end pb-3 pe-3 fs-6">Dificuldade: @Model.Dificuldade</span>
+    </div>
 
     <div class="d-flex justify-content-end">
         @if (!String.IsNullOrEmpty(Model.Link))
         {
-            <div class="display-6 mb-3 col align-self-start">@Model.Link</div>
+            <a href="@Model.Link" class="fs-2 mb-3 col align-self-start">@Model.Link</a>
         }
         <div class="display-6 mb-3 col-2 align-self-end">@Model.Tipo</div>
     </div>

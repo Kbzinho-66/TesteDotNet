@@ -10,7 +10,7 @@
             <form asp-action="Procura">
                 <div class="form-group">
                     <label for="dificuldade">Dificuldade</label>
-                    <input type="number" class="form-control" id="dificuldade" name="dificuldade" min="0.0" max="1.0"
+                    <input type="number" lang="en" class="form-control" id="dificuldade" name="dificuldade" min="0.05" max="1.0"
                         step="0.05" value="0.25">
                 </div>
 
@@ -31,7 +31,7 @@
 
                 <div class="form-group">
                     <label for="participantes">Participantes</label>
-                    <input type="number" class="form-control" id="participantes" name="participantes" min="0" value="1">
+                    <input type="text" class="form-control" id="participantes" name="participantes" min="0" value="1">
                 </div>
 
                 <button asp-controller="Api" asp-action="Procura" class="btn btn-primary mt-4">Procurar</button>
