@@ -13,6 +13,18 @@ public class ApiController : Controller
 {
     private readonly ILogger<ApiController> _logger;
 
+    private static string[] tiposEn = new string[] {
+        "education", "recreational", "social",
+        "diy", "charity", "cooking", 
+        "relaxation", "music", "busywork"
+    };
+
+    private static string[] tiposPt = new string[] {
+        "Educativa", "Divertida", "Social",
+        "Gambiarra", "Caridade", "Cozinha", 
+        "Relaxante", "Música", "Mata Tempo"
+    };
+
     public ApiController(ILogger<ApiController> logger)
     {
         _logger = logger;
@@ -30,28 +42,16 @@ public class ApiController : Controller
             // Vem errado quando é decimal
             dificuldade /= 100.0;
         }
-        var dificuldadeCerta = dificuldade.ToString("n2", CultureInfo.InvariantCulture);
-        Console.WriteLine(dificuldadeCerta);
+        var difFormat = dificuldade.ToString("n2", CultureInfo.InvariantCulture);
 
-        var tiposEn = new string[] {
-            "education", "recreational", "social",
-            "diy", "charity", "cooking", 
-            "relaxation", "music", "busywork"
-        };
         var tipoEn = tiposEn[tipo];
-
-        var tiposPt = new string[] {
-            "Educativa", "Divertida", "Social",
-            "Gambiarra", "Caridade", "Cozinha", 
-            "Relaxante", "Música", "Mata Tempo"
-        };
         var tipoPt = tiposPt[tipo];
 
         var options = new RestClientOptions("https://www.boredapi.com/api/");
         var client = new RestClient(options);
 
         Resposta resposta = await client.GetJsonAsync<Resposta>(
-            $"activity?type={tipoEn}&participants={participantes}&maxaccessibility={dificuldadeCerta}"
+            $"activity?type={tipoEn}&participants={participantes}&maxaccessibility={difFormat}"
         );
 
         return View(new Atividade(resposta, tipoPt));
