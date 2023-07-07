@@ -43,6 +43,7 @@ public class ApiController : Controller
             dificuldade /= 100.0;
         }
         var difFormat = dificuldade.ToString("n2", CultureInfo.InvariantCulture);
+        var difFormat = dificuldade.ToString("n2", CultureInfo.InvariantCulture);
 
         var tipoEn = tiposEn[tipo];
         var tipoPt = tiposPt[tipo];
@@ -51,6 +52,7 @@ public class ApiController : Controller
         var client = new RestClient(options);
 
         Resposta resposta = await client.GetJsonAsync<Resposta>(
+            $"activity?type={tipoEn}&participants={participantes}&maxaccessibility={difFormat}"
             $"activity?type={tipoEn}&participants={participantes}&maxaccessibility={difFormat}"
         );
 
