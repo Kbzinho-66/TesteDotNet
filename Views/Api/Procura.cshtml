@@ -1,0 +1,20 @@
+﻿@model Hello.Models.Atividade
+
+@{
+    ViewData["Title"] = "Sugestão";
+}
+
+<div class="text-center">
+    <h1 class="display-4 mb-3 py-3 d-block bg-warning fw-bold">@Model.Descricao</h1>
+
+    <div class="d-flex justify-content-end">
+        @if (!String.IsNullOrEmpty(Model.Link))
+        {
+            <div class="display-6 mb-3 col align-self-start">@Model.Link</div>
+        }
+        <div class="display-6 mb-3 col-2 align-self-end">@Model.Tipo</div>
+    </div>
+</div>
+
+
+
